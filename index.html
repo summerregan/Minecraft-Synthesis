@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not Just a Game. A Place. — Summer Regan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f5f0e8;--bg2:#ede8dc;--ink:#1a1714;--ink2:#4a4540;--ink3:#8a837a;
+  --accent:#2d5a3d;--accent2:#7a9e4e;--line:rgba(26,23,20,0.12);
+  --serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.75;overflow-x:hidden;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(245,240,232,0.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-logo{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--ink3);text-transform:uppercase;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--accent);}
+
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:70px;overflow:hidden;}
+.hero-left{padding:80px 64px 80px 80px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--line);}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;}
+.hero-title{font-family:var(--serif);font-size:clamp(44px,5.5vw,76px);line-height:1.05;font-weight:700;margin-bottom:12px;}
+.hero-title em{font-style:italic;color:var(--accent);}
+.hero-subtitle{font-family:var(--serif);font-size:clamp(16px,2vw,22px);font-style:italic;color:var(--ink3);margin-bottom:36px;line-height:1.4;}
+.hero-body{font-size:16px;color:var(--ink2);max-width:480px;line-height:1.8;}
+.hero-right{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:#0d1f0e;}
+
+.hero-mc-bg{position:absolute;inset:0;background:linear-gradient(180deg,#1a3a8a 0%,#2a5ad0 28%,#87ceeb 28%,#87ceeb 38%,#4a7a2a 38%,#4a7a2a 44%,#5a6340 44%,#5a6340 52%,#3d2b1f 52%,#3d2b1f 100%);opacity:.7;}
+.hero-mc-sun{position:absolute;top:80px;right:120px;width:48px;height:48px;background:#ffd700;box-shadow:0 0 0 8px rgba(255,215,0,.18);}
+.hero-mc-cloud{position:absolute;background:rgba(255,255,255,.85);}
+.cloud1{top:60px;left:60px;width:90px;height:22px;}
+.cloud1::before{content:'';position:absolute;top:-14px;left:14px;width:36px;height:28px;background:rgba(255,255,255,.85);}
+.cloud2{top:100px;right:180px;width:70px;height:18px;}
+.cloud2::before{content:'';position:absolute;top:-12px;left:10px;width:30px;height:24px;background:rgba(255,255,255,.85);}
+.hero-mc-tree{position:absolute;bottom:38%;}
+.tree-trunk{width:10px;height:30px;background:#5a3a1a;position:absolute;bottom:0;left:50%;transform:translateX(-50%);}
+.tree-leaves{width:42px;height:42px;background:#2d6e1a;position:absolute;bottom:24px;left:50%;transform:translateX(-50%);}
+.tree1{left:10%;}
+.tree2{left:22%;bottom:36%;}
+.tree2 .tree-leaves{width:36px;height:36px;}
+.hero-mc-grass{position:absolute;bottom:0;left:0;right:0;height:40%;background:repeating-linear-gradient(90deg,#4a7a2a 0px,#4a7a2a 22px,#3d6818 22px,#3d6818 24px);}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,5,.92) 0%,rgba(5,10,5,.35) 55%,transparent 100%);}
+.hero-bottom{position:relative;z-index:2;padding:44px 52px;}
+.hero-quote{font-family:var(--serif);font-size:clamp(20px,2.6vw,38px);line-height:1.2;font-style:italic;color:#fff;margin-bottom:28px;}
+.hero-quote strong{font-style:normal;background:var(--accent);color:white;padding:0 6px;font-weight:400;}
+.hero-meta{display:flex;gap:36px;border-top:1px solid rgba(255,255,255,.18);padding-top:24px;}
+.hero-meta-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px;}
+.hero-meta-value{font-size:14px;font-weight:500;color:#fff;}
+
+.img-break{width:100%;height:300px;overflow:hidden;position:relative;display:flex;align-items:flex-end;}
+.img-break-label{position:relative;z-index:2;padding:0 80px 32px;font-family:var(--serif);font-size:clamp(18px,2.2vw,28px);font-style:italic;color:rgba(255,255,255,.92);line-height:1.3;max-width:700px;}
+.img-break-sub{position:absolute;bottom:32px;right:80px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);z-index:2;}
+
+.break-minecraft{background:linear-gradient(180deg,#0a1628 0%,#1a3050 20%,#4a7ab8 35%,#5a8a68 50%,#3d6830 58%,#2d4a20 70%,#1e3010 100%);}
+.break-minecraft::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0,transparent 60px,rgba(255,255,255,.015) 60px,rgba(255,255,255,.015) 61px),repeating-linear-gradient(0deg,transparent 0,transparent 60px,rgba(255,255,255,.015) 60px,rgba(255,255,255,.015) 61px);}
+.break-retro{background:#050e05;}
+.break-retro::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,0,.04) 3px,rgba(0,255,0,.04) 4px);}
+.break-retro-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;opacity:.2;}
+.break-retro-text span{font-family:var(--mono);font-size:13px;color:#00ff00;letter-spacing:.2em;}
+.break-industrial{background:linear-gradient(135deg,#1a1410 0%,#2a2018 40%,#1a1008 100%);}
+.break-industrial::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,.012) 20px,rgba(255,255,255,.012) 21px);}
+.break-modern{background:linear-gradient(160deg,#0a0a1a 0%,#0d1525 50%,#0a1a12 100%);}
+.break-modern::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 70% 50%,rgba(45,90,61,.22) 0%,transparent 70%);}
+.break-dusk{background:linear-gradient(180deg,#1a0e06 0%,#2a1808 20%,#4a2a0e 45%,#2d3a18 65%,#1a2810 100%);}
+
+section{padding:100px 80px;border-top:1px solid var(--line);}
+section.alt{background:var(--bg2);}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.section-label::after{content:'';display:block;width:40px;height:1px;background:var(--accent);}
+h2{font-family:var(--serif);font-size:clamp(28px,3.8vw,48px);line-height:1.1;font-weight:700;margin-bottom:32px;}
+h2 em{font-style:italic;color:var(--accent);}
+h3{font-family:var(--serif);font-size:21px;font-weight:700;margin-bottom:14px;}
+.lead{font-size:19px;line-height:1.7;color:var(--ink2);max-width:760px;margin-bottom:32px;}
+p{color:var(--ink2);margin-bottom:20px;max-width:720px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.two-col-wide{display:grid;grid-template-columns:2fr 1fr;gap:80px;align-items:start;}
+.pull-quote{border-left:3px solid var(--accent);padding:22px 28px;margin:36px 0;background:rgba(45,90,61,.05);}
+.pull-quote p{font-family:var(--serif);font-size:20px;font-style:italic;line-height:1.5;color:var(--ink);max-width:none;margin:0;}
+.sidebar-note{background:var(--bg2);border:1px solid var(--line);padding:22px;font-size:14px;color:var(--ink2);line-height:1.7;margin-top:24px;}
+.alt .sidebar-note{background:var(--bg);}
+.sidebar-note strong{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:8px;}
+.divider{display:flex;align-items:center;gap:20px;margin:48px 0;}
+.divider-line{flex:1;height:1px;background:var(--line);}
+.divider-mark{width:8px;height:8px;border:1px solid var(--ink3);transform:rotate(45deg);flex-shrink:0;}
+
+.games-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:48px;}
+.game-card{background:var(--bg);overflow:hidden;display:flex;flex-direction:column;transition:background .2s;}
+.alt .game-card{background:var(--bg2);}
+.game-card:hover .game-visual{filter:brightness(1.1);}
+.game-visual{width:100%;height:170px;flex-shrink:0;position:relative;overflow:hidden;transition:filter .3s;}
+.game-body-wrap{padding:20px 22px 24px;flex:1;}
+.game-year{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--accent2);margin-bottom:5px;}
+.game-tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:2px 7px;margin-bottom:10px;}
+.game-title{font-family:var(--serif);font-size:17px;font-weight:700;margin-bottom:9px;color:var(--ink);line-height:1.2;}
+.game-body{font-size:13px;line-height:1.7;color:var(--ink2);margin:0;max-width:none;}
+
+.v-colossal{background:#080e08;display:flex;align-items:center;justify-content:center;}
+.v-colossal-inner{font-family:var(--mono);color:#00cc00;font-size:11px;line-height:1.8;opacity:.8;padding:16px;}
+.v-zork{background:#0a0a14;display:flex;align-items:center;justify-content:center;}
+.v-zork-inner{font-family:var(--mono);color:#ccccaa;font-size:11px;line-height:1.8;opacity:.85;padding:16px;}
+.v-rogue{background:#0d0d0d;display:flex;align-items:center;justify-content:center;}
+.v-rogue-grid{font-family:var(--mono);color:#aaaaaa;font-size:14px;line-height:1.3;letter-spacing:.1em;opacity:.9;}
+.v-battlezone{background:#000a00;display:flex;align-items:center;justify-content:center;}
+.v-bz-inner{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+.bz-horizon{position:absolute;bottom:40%;left:0;right:0;height:1px;background:#00ff00;opacity:.5;}
+.bz-tank{width:60px;height:30px;border:2px solid #00ff00;position:relative;}
+.bz-tank::before{content:'';position:absolute;top:-12px;left:20px;width:20px;height:12px;border:2px solid #00ff00;}
+.bz-tank::after{content:'';position:absolute;top:-6px;left:30px;width:30px;height:2px;background:#00ff00;}
+.bz-grid-left{position:absolute;left:0;bottom:30%;width:40%;height:50%;background:linear-gradient(to top right,transparent 49%,rgba(0,255,0,.15) 50%);}
+.bz-grid-right{position:absolute;right:0;bottom:30%;width:40%;height:50%;background:linear-gradient(to top left,transparent 49%,rgba(0,255,0,.15) 50%);}
+.v-mystery{background:#100808;display:flex;align-items:center;justify-content:center;}
+.mystery-house{position:relative;width:80px;height:80px;}
+.mh-body{width:60px;height:45px;background:none;border:2px solid #cc8844;position:absolute;bottom:0;left:10px;}
+.mh-roof{width:0;height:0;border-left:40px solid transparent;border-right:40px solid transparent;border-bottom:28px solid #cc5522;position:absolute;top:-26px;left:0;}
+.mh-door{width:14px;height:20px;border:1.5px solid #cc8844;position:absolute;bottom:0;left:22px;}
+.mh-window{width:12px;height:10px;border:1.5px solid #cc8844;position:absolute;top:8px;left:8px;}
+.mh-window2{width:12px;height:10px;border:1.5px solid #cc8844;position:absolute;top:8px;right:8px;}
+.v-myst{background:linear-gradient(160deg,#1a2a3a 0%,#2a3a4a 40%,#1a2530 100%);}
+.v-myst::before{content:'MYST';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:42px;font-style:italic;color:rgba(140,180,220,.35);letter-spacing:.2em;}
+.v-halflife{background:linear-gradient(160deg,#1a0808 0%,#2d1010 50%,#1a0d0d 100%);}
+.v-halflife::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(255,100,0,.12) 0%,transparent 70%);}
+.v-halflife::after{content:'½';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:72px;color:rgba(255,120,0,.25);font-weight:bold;}
+.v-ac{background:linear-gradient(160deg,#1a3a0a 0%,#2a5a18 40%,#1e4010 100%);}
+.v-ac::before{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:repeating-linear-gradient(90deg,#3d7a1a 0,#3d7a1a 12px,#2d6010 12px,#2d6010 14px);}
+.v-ac::after{content:'♦';position:absolute;top:20px;right:30px;font-size:32px;color:rgba(255,220,100,.3);}
+.v-gta{background:linear-gradient(180deg,#0a0a1a 0%,#1a1a2a 40%,#0a0808 70%,#1a0808 100%);}
+.v-gta::before{content:'';position:absolute;bottom:0;left:0;right:0;height:30%;background:repeating-linear-gradient(90deg,#2a2a2a 0,#2a2a2a 8px,#1a1a1a 8px,#1a1a1a 10px);}
+.v-gta-lights{position:absolute;inset:0;}
+.gta-light{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffdd88;}
+.v-ultima{background:linear-gradient(160deg,#1a0a08 0%,#2a1810 50%,#1a1008 100%);}
+.v-ultima::before{content:'IV';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:64px;font-style:italic;color:rgba(200,150,80,.2);}
+.v-spore{background:linear-gradient(160deg,#080818 0%,#101828 50%,#0a1020 100%);}
+.v-spore::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(100,180,255,.12) 0%,transparent 50%),radial-gradient(circle at 70% 60%,rgba(180,100,255,.1) 0%,transparent 40%);}
+.v-spore-dots{position:absolute;inset:0;}
+.spore-dot{position:absolute;border-radius:50%;background:rgba(100,200,255,.2);}
+.v-lbp{background:linear-gradient(160deg,#1a0a18 0%,#2a1428 50%,#180e18 100%);}
+.v-lbp::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(220,100,180,.12) 0%,transparent 65%);}
+.v-lbp-sack{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.sack-body{width:36px;height:42px;border-radius:50% 50% 40% 40%;background:rgba(180,130,80,.3);border:1.5px solid rgba(180,130,80,.4);position:relative;}
+.sack-eye{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);position:absolute;top:12px;}
+.sack-eye-l{left:6px;}.sack-eye-r{right:6px;}
+.v-terraria{background:linear-gradient(180deg,#060d1a 0%,#0a1428 30%,#1a3010 55%,#0d1808 100%);}
+.v-terraria::before{content:'';position:absolute;bottom:0;left:0;right:0;height:45%;background:repeating-linear-gradient(90deg,#3a1a08 0,#3a1a08 10px,#2a1208 10px,#2a1208 12px);}
+.v-terraria::after{content:'';position:absolute;bottom:44%;left:0;right:0;height:3px;background:repeating-linear-gradient(90deg,#4a7a2a 0,#4a7a2a 10px,#3a6018 10px,#3a6018 12px);}
+.v-stanley{background:#0a0a0a;}
+.v-stanley-hall{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.stanley-corridor{width:60px;height:80px;border:1.5px solid rgba(255,255,255,.15);position:relative;}
+.stanley-door{width:20px;height:30px;border:1.5px solid rgba(255,255,255,.2);position:absolute;bottom:0;left:50%;transform:translateX(-50%);}
+.stanley-light{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:40px solid transparent;border-right:40px solid transparent;border-top:60px solid rgba(255,255,200,.04);}
+.v-dayz{background:linear-gradient(160deg,#0a0e08 0%,#141a0e 50%,#0a0e08 100%);}
+.v-dayz::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0,transparent 18px,rgba(255,255,255,.012) 18px,rgba(255,255,255,.012) 19px),repeating-linear-gradient(0,transparent 0,transparent 18px,rgba(255,255,255,.012) 18px,rgba(255,255,255,.012) 19px);}
+.v-dayz::after{content:'DayZ';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:24px;color:rgba(180,220,100,.2);letter-spacing:.3em;}
+.v-botw{background:linear-gradient(180deg,#0a1428 0%,#1a2a48 25%,#4a6a28 50%,#2a4018 70%,#1a2a0e 100%);}
+.v-botw::before{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:50px solid rgba(255,255,255,.06);}
+.v-fortnite{background:linear-gradient(160deg,#060a1a 0%,#0a1030 50%,#060814 100%);}
+.v-fortnite::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(80,120,255,.1) 0%,transparent 60%);}
+.v-fortnite-f{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:60px;font-weight:900;color:rgba(100,180,255,.15);letter-spacing:-.02em;}
+.v-valheim{background:linear-gradient(180deg,#080810 0%,#101820 30%,#1a2a18 55%,#0e1a0e 100%);}
+.v-valheim::before{content:'';position:absolute;top:15%;left:50%;transform:translateX(-50%);width:40px;height:50px;border:1.5px solid rgba(200,200,255,.15);clip-path:polygon(50% 0%,100% 30%,100% 70%,50% 100%,0% 70%,0% 30%);}
+.v-valheim::after{content:'VALHEIM';position:absolute;bottom:24px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.25em;color:rgba(200,210,255,.2);}
+
+.era-header{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;margin-bottom:40px;}
+.era-number{font-family:var(--serif);font-size:80px;font-weight:700;line-height:1;color:var(--line);user-select:none;}
+.era-info h2{margin-bottom:8px;}
+.era-info p{font-size:15px;margin:0;max-width:600px;}
+
+.analysis-block{display:grid;grid-template-columns:260px 1fr;gap:60px;padding:60px 0;border-top:1px solid var(--line);}
+.analysis-block:first-of-type{border-top:none;padding-top:0;}
+.analysis-sidebar{position:sticky;top:90px;align-self:start;}
+.analysis-number{font-family:var(--serif);font-size:110px;font-weight:700;line-height:1;color:rgba(26,23,20,.05);margin-bottom:-16px;display:block;}
+.analysis-sidebar h3{font-size:12px;font-family:var(--mono);font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.analysis-sidebar .atitle{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.2;color:var(--ink);}
+
+.thread-item{display:grid;grid-template-columns:54px 1fr;gap:22px;padding:30px 0;border-top:1px solid var(--line);align-items:start;}
+.thread-item:first-of-type{border-top:none;padding-top:0;}
+.thread-icon{width:42px;height:42px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--ink3);flex-shrink:0;margin-top:4px;}
+.thread-content h3{margin-bottom:10px;}
+.thread-content p{margin-bottom:0;}
+
+.innovation-feature{padding:44px;border:1px solid var(--line);position:relative;overflow:hidden;margin-bottom:1px;}
+.innovation-feature::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent);}
+.innovation-feature h3{font-size:24px;margin-bottom:14px;}
+
+.statement-layout{display:grid;grid-template-columns:220px 1fr;gap:80px;}
+.statement-sidebar{border-right:1px solid var(--line);padding-right:80px;}
+.statement-sidebar .byline{font-family:var(--serif);font-size:26px;font-style:italic;line-height:1.3;margin-bottom:24px;}
+.statement-sidebar .meta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink3);line-height:2;}
+.statement-body p{font-size:18px;line-height:1.85;max-width:640px;}
+.statement-body p+p{margin-top:24px;}
+
+footer{padding:48px 80px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.footer-left{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ink3);}
+.footer-right{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);text-align:right;line-height:1.8;}
+
+.fade-in{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+.fade-in.visible{opacity:1;transform:none;}
+
+@media(max-width:900px){
+  nav{padding:16px 24px;}.nav-links{display:none;}
+  .hero{grid-template-columns:1fr;min-height:auto;}.hero-left{padding:60px 24px 40px;}.hero-right{height:380px;}
+  section{padding:64px 24px;}
+  .two-col,.two-col-wide,.statement-layout{grid-template-columns:1fr;gap:40px;}
+  .games-grid{grid-template-columns:1fr;}
+  .analysis-block{grid-template-columns:1fr;}.analysis-sidebar{position:static;}
+  footer{flex-direction:column;gap:20px;text-align:center;padding:40px 24px;}
+  .statement-sidebar{border-right:none;padding-right:0;border-bottom:1px solid var(--line);padding-bottom:32px;}
+  .img-break{height:200px;}.img-break-label{padding:0 24px 20px;font-size:18px;}.img-break-sub{right:24px;bottom:20px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Summer Regan — Exhibition 2026</div>
+  <ul class="nav-links">
+    <li><a href="#third-place">Third Place</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+    <li><a href="#foundations">Foundations</a></li>
+    <li><a href="#spaces">Era II</a></li>
+    <li><a href="#modern">Modern</a></li>
+    <li><a href="#synthesis">Synthesis</a></li>
+    <li><a href="#statement">Statement</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Video Game History — Project 3</div>
+    <h1 class="hero-title">Not Just a<br>Game.<br><em>A Place.</em></h1>
+    <div class="hero-subtitle">How Minecraft became somewhere people return to</div>
+    <p class="hero-body">People always ask what you're doing in Minecraft. It's a harder question to answer than it sounds. Sometimes you're building something, sometimes you're surviving, and sometimes you're honestly just walking around a world you know well. That last one is the part this exhibition is about.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-mc-bg"></div>
+    <div class="hero-mc-sun"></div>
+    <div class="hero-mc-cloud cloud1"></div>
+    <div class="hero-mc-cloud cloud2"></div>
+    <div class="hero-mc-tree tree1"><div class="tree-leaves"></div><div class="tree-trunk"></div></div>
+    <div class="hero-mc-tree tree2"><div class="tree-leaves"></div><div class="tree-trunk"></div></div>
+    <div class="hero-mc-grass"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-bottom">
+      <div class="hero-quote">"It's not only<br>something people play.<br>It's <strong>somewhere</strong><br>people go."</div>
+      <div class="hero-meta">
+        <div><div class="hero-meta-label">Subject</div><div class="hero-meta-value">Minecraft (2009)</div></div>
+        <div><div class="hero-meta-label">Games Referenced</div><div class="hero-meta-value">20+</div></div>
+        <div><div class="hero-meta-label">Framework</div><div class="hero-meta-value">Third Place Theory</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THIRD PLACE -->
+<section id="third-place" class="alt">
+  <div class="section-label">The Framework</div>
+  <div class="two-col">
+    <div>
+      <h2>What Is a <em>Third Place?</em></h2>
+      <p class="lead">A third place is anywhere that isn't home and isn't work. It's the coffee shop you go to for no real reason, the park you end up at without planning it, the corner diner you've been going to for years.</p>
+      <p>Sociologist Ray Oldenburg coined the term to describe these kinds of informal spaces — places where people gather not because they have to, but because they want to. They're comfortable. There's no pressure. And over time, they start to feel like yours, not because you own them, but because they hold your history.</p>
+      <p>Minecraft does exactly this. Players come back to worlds they've built over months or years. They recognize their own landmarks — the first house they made, the cave where they found diamonds, the forest a friend planted on a server one afternoon. None of that is directed by the game. It just accumulates.</p>
+    </div>
+    <div>
+      <div class="pull-quote"><p>"Minecraft isn't just something people play. It's somewhere people go."</p></div>
+      <div class="sidebar-note"><strong>Why This Matters</strong>Third places stick around because they mean something to the people who use them — not because they're required to be there. Minecraft works the same way. Your world is still there when you come back. It remembers what you did.</div>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-mark"></div><div class="divider-line"></div></div>
+
+  <div class="two-col">
+    <div>
+      <h2>Why Minecraft Feels Like a <em>Place</em></h2>
+      <p>Most games track your relationship to them through progress. Minecraft doesn't really track anything. It just keeps going.</p>
+      <p>That changes how you relate to it. Instead of thinking about the game as something to beat, you start thinking about it as somewhere to be. You might log in without a clear goal and spend two hours doing something that doesn't technically matter — reorganizing storage, wandering a biome you've already seen, tending a farm nobody asked you to build. And it doesn't feel like wasted time. It feels like being somewhere familiar.</p>
+      <p>That's the thing Minecraft figured out. When a space is yours — when it holds your choices and your time and your weird little decisions — you don't need a reason to go back. You just do.</p>
+    </div>
+    <div>
+      <h2>Time Works <em>Differently</em></h2>
+      <p>One of the most consistent things people say about Minecraft is that they didn't mean to play for that long. You log in to do one thing — build a roof, mine some iron — and suddenly it's been two hours.</p>
+      <p>That's not an accident, but it's also not manipulation. Minecraft doesn't use countdown timers or battle passes to keep you there. It just creates a loop that has no natural stopping point. Mining leads to crafting, crafting leads to building, building leads to a new project, and the game never tells you to stop. It's the same reason you stay at a coffee shop longer than you planned. The environment makes staying feel easy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BREAK 1 -->
+<div class="img-break break-minecraft">
+  <div class="img-break-label">"Your world is still there when you come back."</div>
+  <div class="img-break-sub">Minecraft — Mojang, 2009</div>
+</div>
+
+<!-- ANALYSIS -->
+<section id="analysis">
+  <div class="section-label">Deep Analysis</div>
+  <h2>Inside the <em>Design</em></h2>
+  <p class="lead">Three things Minecraft does that most games don't — and the older games that were quietly doing the same thing first.</p>
+
+  <div class="analysis-block fade-in">
+    <div class="analysis-sidebar">
+      <span class="analysis-number">01</span>
+      <h3>Analysis</h3>
+      <p class="atitle">It Doesn't Tell You Anything</p>
+      <div class="sidebar-note" style="margin-top:20px"><strong>Connected Games</strong>Zork (1977), Myst (1993), Breath of the Wild (2017)</div>
+    </div>
+    <div>
+      <h3>The Game That Trusts You to Figure It Out</h3>
+      <p>Minecraft gives you nothing when you first load in. No tutorial, no objective, no map. The sun is going down and that's the only hint you get. Everything else — that trees give wood, wood makes a crafting table, a crafting table opens up a whole system of tools — you learn by trying things.</p>
+      <p>That matters more than it sounds. When you discover something yourself, you own it in a way that reading it in a tooltip doesn't give you. The knowledge feels earned. And because it's earned, you're more invested in the world it applies to.</p>
+      <div class="pull-quote"><p>"When the game doesn't tell you what to do, everything you figure out feels like yours."</p></div>
+      <p>This isn't new to Minecraft. <strong>Zork (1977)</strong> had rules you had to deduce through trial and error — the game never explained them. <strong>Myst (1993)</strong> dropped you on an island with no instructions and trusted you to learn by paying attention. <strong>Breath of the Wild (2017)</strong> put a mountain in front of you and left the rest to you. All three games — and Minecraft — are making the same quiet bet: that you're curious enough to figure it out without being told.</p>
+    </div>
+  </div>
+
+  <div class="analysis-block fade-in">
+    <div class="analysis-sidebar">
+      <span class="analysis-number">02</span>
+      <h3>Analysis</h3>
+      <p class="atitle">You Lose Track of Time</p>
+      <div class="sidebar-note" style="margin-top:20px"><strong>Connected Games</strong>Animal Crossing (2001), The Stanley Parable (2013)</div>
+    </div>
+    <div>
+      <h3>Why You Never Meant to Stay That Long</h3>
+      <p>A good third place doesn't rush you. There's always something slightly interesting happening, always a small decision available. You don't notice time passing because you're not watching for an ending — you're just in the middle of something.</p>
+      <p>Minecraft is designed around this, whether intentionally or not. The day-night cycle gives you something to orient around without creating urgency. There's no final goal, so there's no moment where the game tells you to wrap up. Every task you complete opens into the next one naturally. You don't run out of things to do because you're the one deciding what counts as a thing to do.</p>
+      <p><strong>Animal Crossing</strong> built a whole game around this — a world running on real time that rewards you for showing up, not for rushing through. <strong>The Stanley Parable</strong> went further by removing the goals entirely, just to show what a game feels like when you decide what it means. Minecraft lands somewhere between both: it has enough structure to feel purposeful, and enough openness that you're always the one choosing what that purpose is.</p>
+    </div>
+  </div>
+
+  <div class="analysis-block fade-in">
+    <div class="analysis-sidebar">
+      <span class="analysis-number">03</span>
+      <h3>Analysis</h3>
+      <p class="atitle">The World Belongs to Whoever's In It</p>
+      <div class="sidebar-note" style="margin-top:20px"><strong>Connected Games</strong>Maze War (1973), LittleBigPlanet (2008), Roblox (2006)</div>
+    </div>
+    <div>
+      <h3>Co-Authorship and the Multiplayer World</h3>
+      <p>Third places feel the way they do partly because they're shaped by the people who use them. A good coffee shop has regulars who change the atmosphere. A park has a personality built up over years of use. Nobody designed that — it just came from everyone showing up.</p>
+      <p>Minecraft servers work exactly the same way. Someone builds the town center. Someone else starts the mine network. Someone decides there's going to be an economy. Nobody planned any of it together, but it comes together into something that feels genuinely lived-in. The world gets its personality from the people in it, not from the game's design.</p>
+      <div class="pull-quote"><p>"The world doesn't tell you what it is. The people who use it do."</p></div>
+      <p><strong>Maze War (1973)</strong> was putting multiple players inside the same first-person space before most people had even played a video game. <strong>LittleBigPlanet</strong> turned player creation into the actual product. <strong>Roblox</strong> took that idea and scaled it into an entire platform. Minecraft sits in the middle of this history — a world open enough to hold whatever the people inside it decide to build.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BREAK 2 -->
+<div class="img-break break-retro">
+  <div class="break-retro-text">
+    <span>>_ YOU ARE IN A MAZE OF TWISTY LITTLE PASSAGES</span>
+    <span>>_ IT IS PITCH BLACK. YOU ARE LIKELY TO BE EATEN BY A GRUE.</span>
+    <span>>_ THERE IS A SMALL MAILBOX HERE.</span>
+  </div>
+  <div class="img-break-label">"Where the DNA Comes From"</div>
+  <div class="img-break-sub">1977 – 1993</div>
+</div>
+
+<!-- ERA I -->
+<section id="foundations" class="alt">
+  <div class="era-header fade-in">
+    <div class="era-number">I</div>
+    <div class="era-info">
+      <div class="section-label">Era One</div>
+      <h2>The Foundations of <em>Exploration</em></h2>
+      <p>1977–1993 — Minecraft didn't show up out of nowhere. A lot of what it does — the curiosity-first exploration, the worlds that don't explain themselves, the sense that discovery is the whole point — was already being worked out decades earlier.</p>
+    </div>
+  </div>
+  <div class="games-grid">
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-colossal">
+        <div class="v-colossal-inner">
+          &gt;_ YOU ARE STANDING AT THE END<br>
+          &gt;_ OF A ROAD BEFORE A SMALL BRICK<br>
+          &gt;_ BUILDING. A SMALL STREAM FLOWS<br>
+          &gt;_ OUT AND DOWN A GULLY.<br>
+          &gt;_ &gt; GO EAST<br>
+          &gt;_ YOU ARE INSIDE A BUILDING...<br>
+          &gt;_ &gt; _
+        </div>
+      </div>
+      <div class="game-body-wrap">
+        <div class="game-year">1976</div><div class="game-tag">Exploration</div>
+        <div class="game-title">Colossal Cave Adventure</div>
+        <p class="game-body">Before graphics existed, this game was already making exploration the whole point. You moved through caves by typing, with no map, no marker, no guidance. Minecraft's underground feels exactly like this — you dig because you're curious, and what you find is the reward.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-zork">
+        <div class="v-zork-inner">
+          ZORK I: THE GREAT<br>
+          UNDERGROUND EMPIRE<br><br>
+          West of House.<br>
+          You are in an open field<br>
+          west of a white house.<br>
+          A boarded front door faces east.<br><br>
+          &gt; OPEN MAILBOX
+        </div>
+      </div>
+      <div class="game-body-wrap">
+        <div class="game-year">1977</div><div class="game-tag">Experimentation</div>
+        <div class="game-title">Zork</div>
+        <p class="game-body">Zork had rules, but it never told you what they were. You figured them out by trying things and seeing what happened. That's exactly how Minecraft's crafting works — nobody tells you that planks and sticks make a pickaxe. You find it by messing around. That process of discovery is the game.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-rogue">
+        <div class="v-rogue-grid">
+          ########&nbsp;&nbsp;#######<br>
+          #......#&nbsp;&nbsp;#.....#<br>
+          #..@...+..+....#<br>
+          #......#&nbsp;&nbsp;#.....#<br>
+          ####+###&nbsp;&nbsp;###.###<br>
+          &nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#<br>
+          &nbsp;&nbsp;&nbsp;#############
+        </div>
+      </div>
+      <div class="game-body-wrap">
+        <div class="game-year">1980</div><div class="game-tag">Procedural Generation</div>
+        <div class="game-title">Rogue</div>
+        <p class="game-body">Rogue generated a different dungeon every time you played. No two runs were the same. Minecraft took that same idea and scaled it into something nearly infinite — every world is different, the horizon always has something you haven't found yet. That unknowing is most of the appeal.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-battlezone">
+        <div class="v-bz-inner">
+          <div class="bz-grid-left"></div>
+          <div class="bz-grid-right"></div>
+          <div class="bz-horizon"></div>
+          <div class="bz-tank"></div>
+        </div>
+      </div>
+      <div class="game-body-wrap">
+        <div class="game-year">1980</div><div class="game-tag">First-Person Immersion</div>
+        <div class="game-title">Battlezone</div>
+        <p class="game-body">One of the first games to put you inside a 3D world through a first-person view. Minecraft uses the same perspective — not for combat, but for something quieter. You feel physically inside the space. You look up at your own house. You watch the sun come up from a hill you climbed yourself.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-mystery">
+        <div class="mystery-house">
+          <div class="mh-roof"></div>
+          <div class="mh-body">
+            <div class="mh-window"></div>
+            <div class="mh-window2"></div>
+            <div class="mh-door"></div>
+          </div>
+        </div>
+      </div>
+      <div class="game-body-wrap">
+        <div class="game-year">1980</div><div class="game-tag">Environmental Storytelling</div>
+        <div class="game-title">Mystery House</div>
+        <p class="game-body">You pieced together what was happening by exploring the space, not by being told. Minecraft works the same way — abandoned mineshafts, villages, jungle temples. The game doesn't explain what they mean. You walk through them and figure it out yourself.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-myst"></div>
+      <div class="game-body-wrap">
+        <div class="game-year">1993</div><div class="game-tag">Observation</div>
+        <div class="game-title">Myst</div>
+        <p class="game-body">Myst trusted players to learn by paying attention. No tutorial, no hand-holding — just a world that made sense if you looked closely enough. Minecraft's biomes, structures, and environments work the same way. The world communicates. You just have to actually look at it.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BREAK 3 -->
+<div class="img-break break-industrial">
+  <div class="img-break-label">"When Games Became Spaces"</div>
+  <div class="img-break-sub">1998 – 2008</div>
+</div>
+
+<!-- ERA II -->
+<section id="spaces">
+  <div class="era-header fade-in">
+    <div class="era-number">II</div>
+    <div class="era-info">
+      <div class="section-label">Era Two</div>
+      <h2>When Games Became <em>Spaces</em></h2>
+      <p>1998–2008 — At some point games stopped being just challenges to get through and started being places you could actually live in. That shift is how we got Minecraft.</p>
+    </div>
+  </div>
+  <div class="games-grid">
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-halflife"></div>
+      <div class="game-body-wrap">
+        <div class="game-year">1998</div><div class="game-tag">Immersion</div>
+        <div class="game-title">Half-Life</div>
+        <p class="game-body">No cutscenes, no breaks in perspective — Half-Life committed fully to putting you inside the world and keeping you there. Minecraft takes that same first-person presence and uses it for something more personal. You're not in a firefight. You're in a space you built, looking around at something that belongs to you.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-ac"></div>
+      <div class="game-body-wrap">
+        <div class="game-year">2001</div><div class="game-tag">Routine & Attachment</div>
+        <div class="game-title">Animal Crossing</div>
+        <p class="game-body">Animal Crossing ran on real time and rewarded you for showing up — not for completing things. The world existed whether you were there or not, and that made coming back feel meaningful. A lot of Minecraft players describe it the same way. You don't log in to accomplish something. You log in to be somewhere you know.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-gta">
+        <div class="v-gta-lights">
+          <div class="gta-light" style="left:20%;top:30%"></div>
+          <div class="gta-light" style="left:45%;top:20%"></div>
+          <div class="gta-light" style="left:70%;top:35%"></div>
+          <div class="gta-light" style="left:30%;top:45%"></div>
+          <div class="gta-light" style="left:60%;top:25%;background:#ff8844"></div>
+          <div class="gta-light" style="left:80%;top:42%"></div>
+          <div class="gta-light" style="left:15%;top:55%"></div>
+          <div class="gta-light" style="left:50%;top:50%;background:#88aaff"></div>
+        </div>
+      </div>
+      <div class="game-body-wrap">
+        <div class="game-year">2001</div><div class="game-tag">Open World</div>
+        <div class="game-title">Grand Theft Auto III</div>
+        <p class="game-body">GTA III showed that an open world didn't need to justify itself with missions. The city just existed, and that was enough. Minecraft takes this even further by removing most of the structure entirely. The world is there. What you do with it is entirely up to you.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-ultima"></div>
+      <div class="game-body-wrap">
+        <div class="game-year">1985</div><div class="game-tag">Player Agency</div>
+        <div class="game-title">Ultima IV</div>
+        <p class="game-body">Ultima IV had no villain. The goal was to become a better person, which meant the player had to decide what that looked like. Minecraft does the same thing more quietly — you decide what your goal is, what counts as progress, what the game means to you. There's no answer provided.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-spore">
+        <div class="v-spore-dots">
+          <div class="spore-dot" style="width:60px;height:60px;left:20%;top:20%"></div>
+          <div class="spore-dot" style="width:30px;height:30px;left:60%;top:10%"></div>
+          <div class="spore-dot" style="width:45px;height:45px;left:55%;top:50%"></div>
+          <div class="spore-dot" style="width:20px;height:20px;left:30%;top:60%"></div>
+        </div>
+      </div>
+      <div class="game-body-wrap">
+        <div class="game-year">2008</div><div class="game-tag">Creation</div>
+        <div class="game-title">Spore</div>
+        <p class="game-body">Spore made creation the whole game — you shaped everything according to your own choices, and the world felt personal because of it. Minecraft operates the same way. The reason your world feels like yours isn't because the game told you it is. It's because you built it.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-lbp">
+        <div class="v-lbp-sack">
+          <div class="sack-body">
+            <div class="sack-eye sack-eye-l"></div>
+            <div class="sack-eye sack-eye-r"></div>
+          </div>
+        </div>
+      </div>
+      <div class="game-body-wrap">
+        <div class="game-year">2008</div><div class="game-tag">User-Generated Content</div>
+        <div class="game-title">LittleBigPlanet</div>
+        <p class="game-body">LittleBigPlanet didn't just let players create — it made creation the whole point. You built things, shared them, and played in what other people made. Minecraft servers work exactly like this. The world isn't a backdrop. It's a shared project, and everyone who shows up is part of building it.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BREAK 4 -->
+<div class="img-break break-modern">
+  <div class="img-break-label">"What Minecraft Made Possible"</div>
+  <div class="img-break-sub">2011 – 2023</div>
+</div>
+
+<!-- ERA III -->
+<section id="modern" class="alt">
+  <div class="era-header fade-in">
+    <div class="era-number">III</div>
+    <div class="era-info">
+      <div class="section-label">Era Three</div>
+      <h2>Minecraft's Influence on <em>Modern Games</em></h2>
+      <p>2011–2023 — Minecraft didn't just inherit ideas from older games. It changed what came after. A lot of what feels normal in games now wasn't normal before Minecraft made it work.</p>
+    </div>
+  </div>
+  <div class="games-grid">
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-terraria"></div>
+      <div class="game-body-wrap">
+        <div class="game-year">2011</div><div class="game-tag">Sandbox Loop</div>
+        <div class="game-title">Terraria</div>
+        <p class="game-body">Terraria took the same loop — mine, craft, build, explore — and collapsed it into 2D. It still worked. Which proved that what Minecraft was offering wasn't really about the look of the world. It was about the feeling of it. The loop itself is what people were showing up for.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-stanley">
+        <div class="stanley-light"></div>
+        <div class="stanley-hall">
+          <div class="stanley-corridor">
+            <div class="stanley-door"></div>
+          </div>
+        </div>
+      </div>
+      <div class="game-body-wrap">
+        <div class="game-year">2013</div><div class="game-tag">Player-Driven Meaning</div>
+        <div class="game-title">The Stanley Parable</div>
+        <p class="game-body">The Stanley Parable removed every objective and asked what a game becomes when you decide what it means. Minecraft answers that question quietly every time someone logs in. You choose the goal. You choose what counts. The game doesn't have an opinion. That's the whole point.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-dayz"></div>
+      <div class="game-body-wrap">
+        <div class="game-year">2013</div><div class="game-tag">Survival Stakes</div>
+        <div class="game-title">DayZ</div>
+        <p class="game-body">DayZ made survival feel genuinely scary — every resource mattered, nothing was guaranteed. Minecraft has a softer version of this in survival mode, but the core feeling is the same. The world isn't just there for you. It can push back. That tension is part of what keeps you engaged.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-botw"></div>
+      <div class="game-body-wrap">
+        <div class="game-year">2017</div><div class="game-tag">Curiosity-Driven</div>
+        <div class="game-title">Breath of the Wild</div>
+        <p class="game-body">Breath of the Wild bet everything on curiosity. The more freely you explored, the better the game got. It worked because the world had enough to reward that exploration — just like Minecraft. Both games are built on the same assumption: that you're going to find something interesting if you just keep walking.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-fortnite">
+        <div class="v-fortnite-f">F</div>
+      </div>
+      <div class="game-body-wrap">
+        <div class="game-year">2017</div><div class="game-tag">Social Space</div>
+        <div class="game-title">Fortnite</div>
+        <p class="game-body">Fortnite turned into a place — concerts, events, things that had nothing to do with the actual game. Minecraft servers had been doing that for years. Fortnite just made it something people noticed. Both games figured out that players don't only want to compete. Sometimes they just want to be somewhere together.</p>
+      </div>
+    </div>
+
+    <div class="game-card fade-in">
+      <div class="game-visual v-valheim"></div>
+      <div class="game-body-wrap">
+        <div class="game-year">2021</div><div class="game-tag">Co-op World Building</div>
+        <div class="game-title">Valheim</div>
+        <p class="game-body">Valheim's best moments happen in multiplayer, when you're building something with other people that nobody asked you to build. That's the same reason Minecraft servers work the way they do. The goal isn't the point. The shared space is the point.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SYNTHESIS -->
+<section id="synthesis">
+  <div class="section-label">Synthesis</div>
+  <div class="two-col-wide">
+    <div>
+      <h2>What All of These Games <em>Have in Common</em></h2>
+      <p class="lead">The games in this exhibition don't all look like Minecraft. Some of them are nothing like it on the surface. But they're all making the same underlying bet about the player.</p>
+
+      <div class="thread-item fade-in">
+        <div class="thread-icon">01</div>
+        <div class="thread-content">
+          <h3>They Trust You</h3>
+          <p>Colossal Cave Adventure trusted you to navigate without a map. Ultima IV trusted you to decide what the game was about. Myst trusted you to learn by paying attention. Breath of the Wild trusted you to find something worth seeing if you just kept exploring. Minecraft trusts you with all of that at once.</p>
+        </div>
+      </div>
+      <div class="thread-item fade-in">
+        <div class="thread-icon">02</div>
+        <div class="thread-content">
+          <h3>The Unexpected Ones Matter Most</h3>
+          <p>Doom isn't a sandbox — but it made first-person space feel physical, and Minecraft inherits that directly. StarCraft isn't about exploration — but gathering resources and building structures is the same loop Minecraft runs on in survival mode. The Stanley Parable has no building, no world, no survival — but the question it's asking is the question Minecraft answers every single time someone loads in.</p>
+        </div>
+      </div>
+      <div class="thread-item fade-in">
+        <div class="thread-icon">03</div>
+        <div class="thread-content">
+          <h3>Minecraft Is Where It All Lands</h3>
+          <p>These aren't just influences. They're a lineage. Fifty years of games figuring out what it means to give a player a space and trust them to do something with it. Minecraft is where that question finally got an answer big enough to stick.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="pull-quote"><p>"These games aren't just influences. They're a lineage — fifty years of asking what it means to give a player a space and trust them to inhabit it."</p></div>
+      <div class="sidebar-note"><strong>The Pattern</strong>From Colossal Cave to Valheim, every game in this exhibition shares something more basic than mechanics. They all believe the most meaningful experiences are the ones players build for themselves.</div>
+    </div>
+  </div>
+</section>
+
+<!-- INNOVATION -->
+<section id="innovation" class="alt">
+  <div class="section-label">Innovation</div>
+  <h2>What Minecraft <em>Actually Is</em></h2>
+  <p class="lead">Everyone can describe Minecraft. Not everyone can explain it. There's a reason for that — and it's the most interesting thing about the game.</p>
+
+  <div class="innovation-feature fade-in">
+    <h3>It Doesn't Fit Any Category</h3>
+    <p>Minecraft isn't really a game in the traditional sense — there's no score, no completion state, no failure condition in most modes. It's not a social platform — there's no feed, no profile, no algorithm deciding what you see. It's not a creative tool, even though people use it like one. It's not a virtual world in the way Second Life was a virtual world.</p>
+    <p>The closest description I've found is a <strong>habitable system</strong> — a set of rules complex enough to generate endless situations, open enough to fit whatever you want to do, persistent enough to hold meaning over time, and social enough to feel like a place people actually live in. No game before it pulled all of that together at this scale.</p>
+  </div>
+
+  <div class="innovation-feature fade-in" style="margin-top:2px">
+    <h3>The Gap Between What You Can List and What You Can't Explain</h3>
+    <p>The games that came after Minecraft — Terraria, Valheim, No Man's Sky, Roblox — all captured parts of what it does. None of them fully replicated the feeling of it. That gap, between the features you can list and the experience you can't quite explain, is actually where the third place argument lives.</p>
+    <p>Third places are hard to justify. Why that coffee shop specifically? Why does that particular park feel different from others? The answer is never really rational — it's something more like accumulated presence. The space holds your history. Minecraft holds your history literally. What you built is still there. Where you've gone is visible in what you left behind. Most games disappear when you close them. <strong>Minecraft keeps the record.</strong></p>
+  </div>
+</section>
+
+<!-- BREAK 5 -->
+<div class="img-break break-dusk" style="height:260px">
+  <div class="img-break-label">"It's less about accomplishing something<br>and more about returning to something."</div>
+</div>
+
+<!-- ARTIST STATEMENT -->
+<section id="statement" class="alt">
+  <div class="section-label">Artist's Statement</div>
+  <div class="statement-layout">
+    <div class="statement-sidebar">
+      <div class="byline">Summer<br>Regan</div>
+      <div class="meta">Video Game History<br>Project 3<br>April 2026<br><br>Central Game:<br>Minecraft (2009)<br><br>Framework:<br>Third Place Theory<br>(Ray Oldenburg)</div>
+    </div>
+    <div class="statement-body">
+      <p>I've been trying to explain Minecraft to people who don't play it for most of my life, and I've never really landed it. The problem is that "you build things and survive" is technically accurate and completely wrong at the same time. What I was reaching for — without having a word for it — was that Minecraft doesn't feel like playing a game. It feels like going somewhere.</p>
+      <p>The third place framework gave me the language I was missing. When I read Oldenburg's description of what makes a third place — the flexibility of time, the lack of obligation, the sense that a space holds your history — I recognized it immediately. That's what Minecraft is. That's why it doesn't end and doesn't need to.</p>
+      <p>The hardest part of putting this together was resisting the urge to make it a timeline. I could have written a straightforward history — here are games from the 70s, here are games from the 80s, here's Minecraft at the end, see how it fits. That would've been accurate. It also would've missed the point. The connections in this exhibition aren't about influence in a linear sense. They're about a shared way of thinking about players — as people who are curious enough to figure things out, patient enough to build something slowly, and attached enough to come back.</p>
+      <p>I didn't want to pick games that look like Minecraft. I wanted games that think like Minecraft — ones that are asking the same question even when they look nothing alike. The Stanley Parable has no building. Doom has no farming. Animal Crossing has no caves. But they're all making the same bet: that if you give a player a space and trust them with it, they'll make it mean something.</p>
+      <p>The honest version of this statement is that I built this exhibition because I wanted to finally be able to explain what Minecraft actually is to someone who's never played it. I think I got closer this time.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">Not just a game. A place.</div>
+  <div class="footer-right">Summer Regan<br>Video Game History — Project 3<br>April 2026</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),80); obs.unobserve(e.target); }});
+},{threshold:.08});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
